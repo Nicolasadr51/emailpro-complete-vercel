@@ -9,7 +9,7 @@ import Templates from "@/pages/Templates";
 import Statistics from "@/pages/Statistics";
 import CSVImportPage from "@/pages/CSVImportPage";
 import CSVExportPage from "@/pages/CSVExportPage";
-import EmailEditorSimple from "@/pages/EmailEditorSimple";
+import EmailEditorAdvanced from "@/pages/EmailEditorAdvanced";
 
 // Page temporaire pour les autres routes
 const ComingSoon = ({ title }) => {
@@ -39,8 +39,8 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           
           {/* Routes Éditeur d'email - Priorité haute */}
-          <Route path="/email-editor" element={<EmailEditorSimple />} />
-          <Route path="/email-editor/:designId" element={<EmailEditorSimple />} />
+          <Route path="/email-editor" element={<EmailEditorAdvanced />} />
+          <Route path="/email-editor/:designId" element={<EmailEditorAdvanced />} />
           
           {/* Routes Templates */}
           <Route path="/templates" element={<Templates />} />
