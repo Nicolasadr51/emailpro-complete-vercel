@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import DashboardLayout from '@/components/layout/DashboardLayout';
 import CampaignFilters from '@/components/campaigns/CampaignFilters';
 import CampaignTable from '@/components/campaigns/CampaignTable';
 import BulkActions from '@/components/campaigns/BulkActions';
+import Pagination from '@/components/common/Pagination';
 import { Button } from '@/components/ui/button';
+import { usePagination } from '@/hooks/usePagination';
 import api from '@/lib/api-mock';
 import { CAMPAIGN_ACTIONS } from '@/types/campaigns';
 import { useNavigate } from 'react-router-dom';
@@ -22,9 +24,8 @@ const Campaigns = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [dateFilter, setDateFilter] = useState('all');
   
-  // Pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  // Pagination avec hook personnalisé
+  const itemsPerPage = 10;
 
   // Charger les campagnes depuis l'API
   useEffect(() => {
@@ -108,12 +109,8 @@ const Campaigns = () => {
     return filtered;
   }, [campaigns, activeStatusFilter, statusFilter, searchQuery, dateFilter]);
 
-  // Pagination
-  const totalPages = Math.ceil(filteredCampaigns.length / itemsPerPage);
-  const paginatedCampaigns = useMemo(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    return filteredCampaigns.slice(startIndex, startIndex + itemsPerPage);
-  }, [filteredCampaigns, currentPage, itemsPerPage]);
+  // Pagination avec hook personnalisé
+  const pagination = usePagination(filteredCampaigns, itemsPerPage);
 
   // Gestionnaires d'événements
   const handleNewCampaign = () => {
@@ -251,7 +248,7 @@ const Campaigns = () => {
 
         {/* Tableau des campagnes */}
         <CampaignTable
-          campaigns={paginatedCampaigns}
+            campaigns={pagination.paginatedData}
           isLoading={isLoading}
           selectedCampaigns={selectedCampaigns}
           onSelectionChange={setSelectedCampaigns}
@@ -259,48 +256,22 @@ const Campaigns = () => {
         />
 
         {/* Pagination */}
-        {!isLoading && totalPages > 1 && (
-          <div className="flex items-center justify-between" data-testid="pagination">
-            <div className="text-sm text-gray-700">
-              Affichage de {((currentPage - 1) * itemsPerPage) + 1} à{' '}
-              {Math.min(currentPage * itemsPerPage, filteredCampaigns.length)} sur{' '}
-              {filteredCampaigns.length} campagnes
-            </div>
-            <div className="flex gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage(currentPage - 1)}
-                data-testid="prev-page"
-              >
-                Précédent
-              </Button>
-              
-              <div className="flex gap-1">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <Button
-                    key={page}
-                    variant={page === currentPage ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setCurrentPage(page)}
-                    data-testid={`page-${page}`}
-                  >
-                    {page}
-                  </Button>
-                ))}
-              </div>
-              
-              <Button
-                variant="outline"
-                size="sm"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage(currentPage + 1)}
-                data-testid="next-page"
-              >
-                Suivant
-              </Button>
-            </div>
+        {!isLoading && filteredCampaigns.length > 0 && (
+          <div className="mt-6">
+            <Pagination
+              currentPage={pagination.currentPage}
+              totalPages={pagination.totalPages}
+              totalItems={pagination.totalItems}
+              startIndex={pagination.startIndex}
+              endIndex={pagination.endIndex}
+              hasNextPage={pagination.hasNextPage}
+              hasPreviousPage={pagination.hasPreviousPage}
+              goToPage={pagination.goToPage}
+              goToNextPage={pagination.goToNextPage}
+              goToPreviousPage={pagination.goToPreviousPage}
+              goToFirstPage={pagination.goToFirstPage}
+              goToLastPage={pagination.goToLastPage}
+            />
           </div>
         )}
 
