@@ -363,11 +363,21 @@ const EmailEditorAdvanced = () => {
 
   // Logs de débogage
   useEffect(() => {
-    console.log('EmailEditor Advanced monté avec:', {
+    console.log('🎯 EmailEditor Advanced monté avec:', {
       designId,
       locationState: location.state,
-      pathname: location.pathname
+      pathname: location.pathname,
+      timestamp: new Date().toISOString()
     });
+    
+    // Vérification que nous sommes bien dans l'éditeur
+    if (designId) {
+      console.log('✅ Template ID détecté:', designId);
+    }
+    
+    if (location.state?.template) {
+      console.log('✅ Données template reçues:', location.state.template);
+    }
   }, [designId, location]);
 
   // Gestion de l'historique

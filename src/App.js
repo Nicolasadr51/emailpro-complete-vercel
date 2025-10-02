@@ -34,13 +34,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
+          {/* Routes Éditeur d'email - PRIORITÉ ABSOLUE */}
+          <Route path="/email-editor/:designId" element={<EmailEditorAdvanced />} />
+          <Route path="/email-editor" element={<EmailEditorAdvanced />} />
+          
           {/* Route principale - Dashboard */}
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          
-          {/* Routes Éditeur d'email - Priorité haute */}
-          <Route path="/email-editor" element={<EmailEditorAdvanced />} />
-          <Route path="/email-editor/:designId" element={<EmailEditorAdvanced />} />
           
           {/* Routes Templates */}
           <Route path="/templates" element={<Templates />} />
