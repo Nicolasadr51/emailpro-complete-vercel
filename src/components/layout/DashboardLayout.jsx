@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -66,7 +67,7 @@ const DashboardLayout = ({ children }) => {
         {/* Contenu principal */}
         <main className="flex-1 overflow-auto min-w-0" data-testid="main-content">
           <div className="p-4 md:p-6 lg:p-8 max-w-full">
-            {children}
+            <Outlet />
           </div>
         </main>
       </div>

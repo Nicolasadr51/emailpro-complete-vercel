@@ -1,6 +1,6 @@
 import React from "react";
 import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "@/pages/Dashboard";
 import Campaigns from "@/pages/Campaigns";
 import CampaignCreate from "@/pages/CampaignCreate";
@@ -34,35 +34,27 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {/* Routes Éditeur d'email - PRIORITÉ ABSOLUE */}
+          {/* Routes SANS layout - Éditeur d'email */}
           <Route path="/email-editor/:designId" element={<EmailEditorAdvanced />} />
           <Route path="/email-editor" element={<EmailEditorAdvanced />} />
           
-          {/* Route principale - Dashboard */}
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          
-          {/* Routes Templates */}
-          <Route path="/templates" element={<Templates />} />
-          
-          {/* Routes Campagnes */}
-          <Route path="/campaigns" element={<Campaigns />} />
-          <Route path="/campaigns/new" element={<CampaignCreate />} />
-          <Route path="/campaigns/:id" element={<ComingSoon title="Détails de la Campagne" />} />
-          <Route path="/campaigns/:id/edit" element={<ComingSoon title="Modifier la Campagne" />} />
-          <Route path="/campaigns/:id/stats" element={<ComingSoon title="Statistiques de la Campagne" />} />
-          
-          {/* Routes Contacts */}
-          <Route path="/contacts" element={<Contacts />} />
-          <Route path="/contacts/import" element={<CSVImportPage />} />
-          <Route path="/contacts/export" element={<CSVExportPage />} />
-          
-          {/* Routes Statistiques */}
-          <Route path="/stats" element={<Statistics />} />
-          <Route path="/statistics" element={<Statistics />} />
-          
-          {/* Route 404 */}
-          <Route path="*" element={<ComingSoon title="Page non trouvée" />} />
+          {/* Routes AVEC DashboardLayout */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/templates" element={<Templates />} />
+            <Route path="/campaigns" element={<Campaigns />} />
+            <Route path="/campaigns/new" element={<CampaignCreate />} />
+            <Route path="/campaigns/:id" element={<ComingSoon title="Détails de la Campagne" />} />
+            <Route path="/campaigns/:id/edit" element={<ComingSoon title="Modifier la Campagne" />} />
+            <Route path="/campaigns/:id/stats" element={<ComingSoon title="Statistiques de la Campagne" />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/contacts/import" element={<CSVImportPage />} />
+            <Route path="/contacts/export" element={<CSVExportPage />} />
+            <Route path="/stats" element={<Statistics />} />
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="*" element={<ComingSoon title="Page non trouvée" />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
