@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Plus } from 'lucide-react';
 import CampaignFilters from '@/components/campaigns/CampaignFilters';
 import CampaignTable from '@/components/campaigns/CampaignTable';
@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { usePagination } from '@/hooks/usePagination';
 import api from '@/lib/api-mock';
 import { CAMPAIGN_ACTIONS } from '@/types/campaigns';
+import { CAMPAIGN_STATUS } from '@/constants/campaigns';
+import { filterCampaigns } from '@/utils/campaign-filters';
 import { useNavigate } from 'react-router-dom';
 
 const Campaigns = () => {
@@ -57,59 +59,20 @@ const Campaigns = () => {
 
   // Filtrer les campagnes
   const filteredCampaigns = useMemo(() => {
-    let filtered = campaigns;
-    
-    // Filtre par statut rapide
-    if (activeStatusFilter !== 'all') {
-      filtered = filtered.filter(c => c.status === activeStatusFilter);
-    }
-    
-    // Filtre par statut avancé (surcharge le filtre rapide)
-    if (statusFilter !== 'all') {
-      filtered = filtered.filter(c => c.status === statusFilter);
-    }
-    
-    // Filtre par recherche
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(c => 
-        c.name.toLowerCase().includes(query) ||
-        c.subject.toLowerCase().includes(query)
-      );
-    }
-    
-    // Filtre par date (simulation basique)
-    if (dateFilter !== 'all') {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      
-      filtered = filtered.filter(c => {
-        if (c.date === '-' || !c.createdAt) return dateFilter === 'all';
-        
-        const campaignDate = new Date(c.createdAt);
-        
-        switch (dateFilter) {
-          case 'today':
-            return campaignDate >= today;
-          case 'week':
-            const weekAgo = new Date(today);
-            weekAgo.setDate(weekAgo.getDate() - 7);
-            return campaignDate >= weekAgo;
-          case 'month':
-            const monthAgo = new Date(today);
-            monthAgo.setMonth(monthAgo.getMonth() - 1);
-            return campaignDate >= monthAgo;
-          default:
-            return true;
-        }
-      });
-    }
-    
-    return filtered;
+    return filterCampaigns(campaigns, {
+      searchQuery,
+      statusFilter: statusFilter !== 'all' ? statusFilter : activeStatusFilter,
+      dateFilter
+    });
   }, [campaigns, activeStatusFilter, statusFilter, searchQuery, dateFilter]);
 
   // Pagination avec hook personnalisé
-  const pagination = usePagination(filteredCampaigns, itemsPerPage);
+  const {
+    paginatedData: currentItems,
+    currentPage,
+    totalPages,
+    goToPage
+  } = usePagination(filteredCampaigns, itemsPerPage);
 
   // Gestionnaires d'événements
   const handleNewCampaign = () => {
