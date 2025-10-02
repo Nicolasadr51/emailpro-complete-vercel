@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DashboardLayout from '@/components/layout/DashboardLayout';
 import MetricsCards from '@/components/dashboard/MetricsCards';
 import ActivityChart from '@/components/dashboard/ActivityChart';
 import RecentCampaigns from '@/components/dashboard/RecentCampaigns';
@@ -106,26 +105,23 @@ const Dashboard = () => {
 
   if (error) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="text-red-500 text-lg font-medium mb-2">Erreur</div>
-            <div className="text-gray-600">{error}</div>
-            <button 
-              onClick={() => window.location.reload()} 
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-            >
-              Recharger
-            </button>
-          </div>
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="text-red-500 text-lg font-medium mb-2">Erreur</div>
+          <div className="text-gray-600">{error}</div>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            Recharger
+          </button>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
-      <div className="space-y-8" data-testid="dashboard-page">
+    <div className="space-y-8" data-testid="dashboard-page">
         {/* En-tête */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -156,8 +152,7 @@ const Dashboard = () => {
           onEditCampaign={handleEditCampaign}
           onDeleteCampaign={handleDeleteCampaign}
         />
-      </div>
-    </DashboardLayout>
+    </div>
   );
 };
 
