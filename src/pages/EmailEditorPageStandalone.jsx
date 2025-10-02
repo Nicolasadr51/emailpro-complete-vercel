@@ -381,8 +381,8 @@ const EmailEditorPageStandalone = () => {
               <Button onClick={() => window.location.reload()} className="w-full">
                 Recharger la page
               </Button>
-              <Button variant="outline" onClick={() => console.log('Retour aux campagnes')} className="w-full">
-                Retour aux campagnes
+              <Button variant="outline" onClick={() => navigate('/templates')} className="w-full">
+                Retour aux templates
               </Button>
             </div>
           </CardContent>
@@ -400,11 +400,11 @@ const EmailEditorPageStandalone = () => {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => console.log('Retour aux campagnes')}
+              onClick={() => navigate('/templates')}
               className="flex items-center"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
-              Retour aux campagnes
+              Retour aux templates
             </Button>
             
             <div className="flex flex-col">
