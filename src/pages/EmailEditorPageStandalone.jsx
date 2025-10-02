@@ -3,7 +3,7 @@ import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, us
 import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { Save, Eye, Smartphone, Monitor, Settings, ArrowLeft, Plus, Undo, Redo, AlertCircle, Download, Upload } from 'lucide-react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -21,7 +21,17 @@ import api from '@/lib/api-mock';
 const EmailEditorPageStandalone = () => {
   const navigate = useNavigate();
   const { designId } = useParams();
+  const location = useLocation();
   const isEditMode = Boolean(designId);
+
+  // Logs de débogage
+  useEffect(() => {
+    console.log('EmailEditor monté avec:', {
+      designId,
+      locationState: location.state,
+      pathname: location.pathname
+    });
+  }, [designId, location]);
 
   // Editor state
   const [emailDesign, setEmailDesign] = useState(null);

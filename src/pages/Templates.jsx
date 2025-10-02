@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Plus, Search, Filter, Eye, Edit, Copy, Trash2, MoreHorizontal, Layout, Mail, ShoppingCart, FileText, Star, Grid, List } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -132,9 +132,26 @@ const TemplatesPage = () => {
   };
 
   const handleEditTemplate = (template) => {
-    // Rediriger vers l'éditeur d'email avec l'ID du template
-    console.log('Navigating to template editor:', template.id);
-    navigate(`/email-editor/${template.id}`);
+    try {
+      console.log('Tentative de navigation vers:', `/email-editor/${template.id}`);
+      
+      // Vérification des données
+      if (!template || !template.id) {
+        console.error('Template invalide:', template);
+        return;
+      }
+      
+      // Navigation avec état
+      navigate(`/email-editor/${template.id}`, {
+        state: { template },
+        replace: false
+      });
+      
+    } catch (error) {
+      console.error('Erreur de navigation:', error);
+      // Fallback
+      window.location.href = `/email-editor/${template.id}`;
+    }
   };
 
   const handleDuplicateTemplate = (template) => {

@@ -38,6 +38,13 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/dashboard" element={<Dashboard />} />
           
+          {/* Routes Éditeur d'email - Priorité haute */}
+          <Route path="/email-editor" element={<EmailEditorPageStandalone />} />
+          <Route path="/email-editor/:designId" element={<EmailEditorPageStandalone />} />
+          
+          {/* Routes Templates */}
+          <Route path="/templates" element={<Templates />} />
+          
           {/* Routes Campagnes */}
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/campaigns/new" element={<CampaignCreate />} />
@@ -50,16 +57,9 @@ function App() {
           <Route path="/contacts/import" element={<CSVImportPage />} />
           <Route path="/contacts/export" element={<CSVExportPage />} />
           
-          {/* Routes Templates */}
-          <Route path="/templates" element={<Templates />} />
-          
           {/* Routes Statistiques */}
           <Route path="/stats" element={<Statistics />} />
           <Route path="/statistics" element={<Statistics />} />
-          
-          {/* Routes Éditeur d'email */}
-          <Route path="/email-editor" element={<EmailEditorPageStandalone />} />
-          <Route path="/email-editor/:designId" element={<EmailEditorPageStandalone />} />
           
           {/* Route 404 */}
           <Route path="*" element={<ComingSoon title="Page non trouvée" />} />
