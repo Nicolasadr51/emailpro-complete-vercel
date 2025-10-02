@@ -8,7 +8,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell, AreaChart, Area } from 'recharts';
-import DashboardLayout from '@/components/layout/DashboardLayout';
 
 const StatisticsPage = () => {
   const [timeRange, setTimeRange] = useState('30d');
@@ -99,8 +98,7 @@ const StatisticsPage = () => {
   };
 
   return (
-    <DashboardLayout>
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
         {/* En-tête */}
         <div className="flex justify-between items-center">
           <div>
@@ -460,7 +458,6 @@ const StatisticsPage = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </DashboardLayout>
   );
 };
 

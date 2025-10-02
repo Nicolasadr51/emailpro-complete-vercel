@@ -13,7 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import DashboardLayout from '@/components/layout/DashboardLayout';
+
 
 const ContactsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -166,8 +166,7 @@ const ContactsPage = () => {
   });
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6">
+    <div className="space-y-6">
         {/* En-tête */}
         <div className="flex justify-between items-start mb-6">
           <div>
@@ -535,7 +534,6 @@ const ContactsPage = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </DashboardLayout>
   );
 };
 

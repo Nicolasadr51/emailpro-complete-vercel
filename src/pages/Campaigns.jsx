@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import DashboardLayout from '@/components/layout/DashboardLayout';
 import CampaignFilters from '@/components/campaigns/CampaignFilters';
 import CampaignTable from '@/components/campaigns/CampaignTable';
 import BulkActions from '@/components/campaigns/BulkActions';
@@ -190,26 +189,23 @@ const Campaigns = () => {
 
   if (error) {
     return (
-      <DashboardLayout>
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="text-red-500 text-lg font-medium mb-2">Erreur</div>
-            <div className="text-gray-600 mb-4">{error}</div>
-            <Button 
-              onClick={() => window.location.reload()} 
-              className="bg-blue-500 hover:bg-blue-600"
-            >
-              Recharger
-            </Button>
-          </div>
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="text-red-500 text-lg font-medium mb-2">Erreur</div>
+          <div className="text-gray-600 mb-4">{error}</div>
+          <Button 
+            onClick={() => window.location.reload()} 
+            className="bg-blue-500 hover:bg-blue-600"
+          >
+            Recharger
+          </Button>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
-      <div className="space-y-6" data-testid="campaigns-page">
+    <div className="space-y-6" data-testid="campaigns-page">
         {/* En-tête de page */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
@@ -300,7 +296,6 @@ const Campaigns = () => {
           </div>
         )}
       </div>
-    </DashboardLayout>
   );
 };
 

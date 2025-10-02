@@ -11,7 +11,6 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import DashboardLayout from '@/components/layout/DashboardLayout';
 
 const TemplatesPage = () => {
   const navigate = useNavigate();
@@ -233,8 +232,7 @@ const TemplatesPage = () => {
   });
 
   return (
-    <DashboardLayout>
-      <div className="container mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6 space-y-6">
         {/* En-tête */}
         <div className="flex justify-between items-center">
           <div>
@@ -621,7 +619,6 @@ const TemplatesPage = () => {
           </DialogContent>
         </Dialog>
       </div>
-    </DashboardLayout>
   );
 };
 
