@@ -133,7 +133,7 @@ const TemplatesPage = () => {
 
   const handleEditTemplate = (template) => {
     try {
-      console.log('Tentative de navigation vers:', `/email-editor/${template.id}`);
+      console.log('[Navigation] Template Edit:', template.id);
       
       // Vérification des données
       if (!template || !template.id) {
@@ -141,10 +141,14 @@ const TemplatesPage = () => {
         return;
       }
       
-      // Navigation avec état
+      // Navigation avec état et remplacement forcé
       navigate(`/email-editor/${template.id}`, {
-        state: { template },
-        replace: false
+        state: { 
+          fromTemplates: true,
+          templateId: template.id,
+          template 
+        },
+        replace: true // Force le remplacement de l'historique
       });
       
     } catch (error) {

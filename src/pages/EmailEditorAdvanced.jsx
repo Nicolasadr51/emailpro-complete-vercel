@@ -361,7 +361,7 @@ const EmailEditorAdvanced = () => {
     useSensor(KeyboardSensor)
   );
 
-  // Logs de débogage
+  // Logs de débogage et vérification navigation
   useEffect(() => {
     console.log('🎯 EmailEditor Advanced monté avec:', {
       designId,
@@ -369,6 +369,12 @@ const EmailEditorAdvanced = () => {
       pathname: location.pathname,
       timestamp: new Date().toISOString()
     });
+    
+    // Vérifier si on vient de la page Templates
+    if (location.state?.fromTemplates) {
+      console.log('✅ Navigation depuis Templates détectée');
+      console.log('✅ Template ID:', location.state.templateId);
+    }
     
     // Vérification que nous sommes bien dans l'éditeur
     if (designId) {

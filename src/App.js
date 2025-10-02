@@ -34,25 +34,25 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {/* Routes SANS layout - Éditeur d'email */}
+          {/* Routes publiques - SANS DashboardLayout */}
           <Route path="/email-editor/:designId" element={<EmailEditorAdvanced />} />
           <Route path="/email-editor" element={<EmailEditorAdvanced />} />
           
-          {/* Routes AVEC DashboardLayout */}
-          <Route element={<DashboardLayout />}>
-            <Route path="/" element={<Navigate to="/dashboard" replace />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/templates" element={<Templates />} />
-            <Route path="/campaigns" element={<Campaigns />} />
-            <Route path="/campaigns/new" element={<CampaignCreate />} />
-            <Route path="/campaigns/:id" element={<ComingSoon title="Détails de la Campagne" />} />
-            <Route path="/campaigns/:id/edit" element={<ComingSoon title="Modifier la Campagne" />} />
-            <Route path="/campaigns/:id/stats" element={<ComingSoon title="Statistiques de la Campagne" />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/contacts/import" element={<CSVImportPage />} />
-            <Route path="/contacts/export" element={<CSVExportPage />} />
-            <Route path="/stats" element={<Statistics />} />
-            <Route path="/statistics" element={<Statistics />} />
+          {/* Routes protégées - AVEC DashboardLayout */}
+          <Route path="/" element={<DashboardLayout />}>
+            <Route index element={<Navigate to="/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="templates" element={<Templates />} />
+            <Route path="campaigns" element={<Campaigns />} />
+            <Route path="campaigns/new" element={<CampaignCreate />} />
+            <Route path="campaigns/:id" element={<ComingSoon title="Détails de la Campagne" />} />
+            <Route path="campaigns/:id/edit" element={<ComingSoon title="Modifier la Campagne" />} />
+            <Route path="campaigns/:id/stats" element={<ComingSoon title="Statistiques de la Campagne" />} />
+            <Route path="contacts" element={<Contacts />} />
+            <Route path="contacts/import" element={<CSVImportPage />} />
+            <Route path="contacts/export" element={<CSVExportPage />} />
+            <Route path="stats" element={<Statistics />} />
+            <Route path="statistics" element={<Statistics />} />
             <Route path="*" element={<ComingSoon title="Page non trouvée" />} />
           </Route>
         </Routes>
